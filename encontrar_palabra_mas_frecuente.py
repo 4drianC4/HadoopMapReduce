@@ -1,6 +1,6 @@
 def palabra_mas_frecuente(nombre_archivo):
     # Crear un diccionario para almacenar las palabras y sus cantidades
-    frecuencias = {}
+    frecuencias = {}    
 
     # Abrir y leer el archivo línea por línea
     with open(nombre_archivo, 'r', encoding="utf-8") as archivo:
@@ -18,6 +18,7 @@ def palabra_mas_frecuente(nombre_archivo):
     return palabra_maxima, frecuencias[palabra_maxima]
 
 # Ejemplo de uso
-nombre_archivo = 'ejemp.txt'
+# Recibir por teclado el nombre del archivo
+nombre_archivo = input("Ingrese el nombre del archivo: ")
 palabra, cantidad = palabra_mas_frecuente(nombre_archivo)
 print(f"La palabra que aparece más veces es '{palabra}' con una cantidad de {cantidad}.")
