@@ -60,7 +60,7 @@ def almacenar_frases(contenido, archivo_salida):
             continue
         # Eliminar las palabras que tienen menos de 3 caracteres
         palabras = linea.split()
-        palabras_filtradas = [palabra for palabra in palabras if len(palabra) > 3]
+        palabras_filtradas = [palabra for palabra in palabras if len(palabra) > 4]
         linea_filtrada = ' '.join(palabras_filtradas)
         frases.append(linea_filtrada)
 
