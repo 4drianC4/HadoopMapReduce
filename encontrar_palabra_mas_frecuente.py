@@ -21,4 +21,4 @@ def palabra_mas_frecuente(nombre_archivo):
 # Recibir por teclado el nombre del archivo
 nombre_archivo = input("Ingrese el nombre del archivo: ")
 palabra, cantidad = palabra_mas_frecuente(nombre_archivo)
-print(f"La palabra que aparece más veces es '{palabra}' con una cantidad de {cantidad}.")
+print(f"La noticia más relevante es sobre '{palabra}' con una cantidad de {cantidad} veces de aparición.")
