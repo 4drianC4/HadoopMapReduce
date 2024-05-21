@@ -1,6 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+from flask import Flask, render_template, request, redirect, url_for, send_file
+import io
+
+app = Flask(__name__)
 
 def extract_content(url):
     headers = {
@@ -45,22 +49,60 @@ def extract_content_for_date_range(start_date, end_date, newspapers):
     
     return all_page_text
 
-if __name__ == "__main__":
-    start_date_str = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
-    end_date_str = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
-    
-    start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-    end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+def almacenar_frases(contenido, archivo_salida):
+    lineas = contenido.split('\n')
 
-    newspapers = {
-        "Opinion": get_opinion_url,
-        "El Deber": get_eldeber_url,
-        "Los Tiempos": get_lostiempos_url
-    }
+    frases = []
+
+    for linea in lineas:
+        # Verificar si la línea tiene más de una palabra
+        if len(linea.split()) > 3:
+            frases.append(linea.strip())
+
+    with open(archivo_salida, 'w', encoding='utf-8') as file:
+        for frase in frases:
+            file.write(frase + '\n')
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        start_date_str = request.form['start_date']
+        end_date_str = request.form['end_date']
+        selected_newspapers = request.form.getlist('newspapers')
+        
+        try:
+            start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+        except ValueError:
+            return render_template('index.html', error="Invalid date format. Use YYYY-MM-DD.")
+        
+        newspapers_funcs = {
+    "Opinión": get_opinion_url,
+    "El Deber": get_eldeber_url,
+    "Los Tiempos": get_lostiempos_url
+}
+
+        
+        newspapers = {name: newspapers_funcs[name] for name in selected_newspapers}
+        
+        if not newspapers:
+            return render_template('index.html', error="Please select at least one newspaper.")
+        
+        all_page_text = extract_content_for_date_range(start_date, end_date, newspapers)
+        
+        if all_page_text:
+            frases_output = 'frases.txt'
+            almacenar_frases(all_page_text, frases_output)
+            return send_file(
+                frases_output,
+                as_attachment=True,
+                download_name=frases_output,
+                mimetype='text/plain'
+            )
+        else:
+            return render_template('index.html', error="No content was extracted for the given date range.")
     
-    all_page_text = extract_content_for_date_range(start_date, end_date, newspapers)
-    
-    with open('page_content.txt', 'w', encoding='utf-8') as file:
-        file.write(all_page_text)
-    
-    print("Contenido extraído y guardado en page_content.txt")
+    return render_template('index.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)
