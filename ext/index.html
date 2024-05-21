@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extrayendo información</title>
+</head>
+<body>
+    <h1>Extrayendo información</h1>
+    <form action="/get-news" method="post">
+        <label for="start_date">Fecha Inicial:</label>
+        <input type="date" id="start_date" name="start_date" required>
+        <br>
+        <label for="end_date">Fecha Final:</label>
+        <input type="date" id="end_date" name="end_date" required>
+        <br>
+        <label for="newspaper">Periódico Digital:</label>
+        <input type="text" id="newspaper" name="newspaper" required>
+        <br>
+        <button type="submit">Extraer información</button>
+    </form>
+</body>
+</html>
