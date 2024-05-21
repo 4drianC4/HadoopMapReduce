@@ -14,10 +14,9 @@ def run_command(command):
 # Transferir archivo desde Windows a CentOS usando SCP
 #direccion del txt de windows(editar)
 local_file_path = "C:/Users/Lenovo/Downloads/text.txt"
-#nombre del txt con el que se guardara en centOS(editar)
-txtNombre = "ultimoultimo2.txt"
+
 #direccion del txt en centOS(editar opcional)
-remote_file_path = "/home/hadoop/{txtNombre}"
+remote_file_path = "/home/hadoop/windows11.txt"
 scp_command = f'scp -P {port} "{local_file_path}" {username}@{hostname}:{remote_file_path}'
 stdout, stderr = run_command(scp_command)
 print("SCP stdout:", stdout)
@@ -26,7 +25,7 @@ print("SCP stderr:", stderr)
 carpetaEntradaHadoop = "librote"
 
 #Nombre de la carpeta de salida del mapreduce de hadoop (editar siempre)
-carpetaSalidaHadoop = "ultimito"
+carpetaSalidaHadoop = "salidota2"
 # Subir el archivo al sistema de archivos distribuido de Hadoop (HDFS)
 hdfs_put_command = f'ssh -p {port} {username}@{hostname} "hdfs dfs -put {remote_file_path} /{carpetaEntradaHadoop}"'
 stdout, stderr = run_command(hdfs_put_command)
