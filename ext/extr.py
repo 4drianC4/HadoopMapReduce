@@ -55,9 +55,14 @@ def almacenar_frases(contenido, archivo_salida):
     frases = []
 
     for linea in lineas:
-        # Verificar si la línea tiene más de una palabra
-        if len(linea.split()) > 3:
-            frases.append(linea.strip())
+        # Borrar las líneas que tienen menos de 3 palabras
+        if len(linea.split()) <= 3:
+            continue
+        # Eliminar las palabras que tienen menos de 3 caracteres
+        palabras = linea.split()
+        palabras_filtradas = [palabra for palabra in palabras if len(palabra) > 3]
+        linea_filtrada = ' '.join(palabras_filtradas)
+        frases.append(linea_filtrada)
 
     with open(archivo_salida, 'w', encoding='utf-8') as file:
         for frase in frases:
