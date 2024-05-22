@@ -1,3 +1,6 @@
+import tkinter
+
+
 def palabra_mas_frecuente(nombre_archivo):
     # Crear un diccionario para almacenar las palabras y sus cantidades
     frecuencias = {}    
@@ -19,6 +22,6 @@ def palabra_mas_frecuente(nombre_archivo):
 
 # Ejemplo de uso
 # Recibir por teclado el nombre del archivo
-nombre_archivo = input("Ingrese el nombre del archivo: ")
+nombre_archivo = "part-r-00000"
 palabra, cantidad = palabra_mas_frecuente(nombre_archivo)
 print(f"La noticia más relevante es sobre '{palabra}' con una cantidad de {cantidad} veces de aparición.")
