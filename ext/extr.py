@@ -1,4 +1,5 @@
 import requests
+import subprocess
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from flask import Flask, render_template, request, redirect, url_for, send_file
@@ -68,7 +69,12 @@ def almacenar_frases(contenido, archivo_salida):
         for frase in frases:
             file.write(frase + '\n')
 
+def run_command(command):
+    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    return result.stdout, result.stderr
+
 @app.route('/', methods=['GET', 'POST'])
+
 def index():
     if request.method == 'POST':
         start_date_str = request.form['start_date']
@@ -93,17 +99,20 @@ def index():
         if not newspapers:
             return render_template('index.html', error="Please select at least one newspaper.")
         
-        all_page_text = extract_content_for_date_range(start_date, end_date, newspapers)
-        
+        all_page_text = extract_content_for_date_range(start_date, end_date, newspapers)        
         if all_page_text:
-            frases_output = 'frases.txt'
+            frases_output = 'frases.txt'            
             almacenar_frases(all_page_text, frases_output)
+            # correr el programa comandos.py
+            stdout, stderr = run_command('python comandos.py')
+            print("Comandos stdout:", stdout)
+            print("Comandos stderr:", stderr)
             return send_file(
                 frases_output,
                 as_attachment=True,
                 download_name=frases_output,
-                mimetype='text/plain'
-            )
+                mimetype='text/plain'                
+            )                       
         else:
             return render_template('index.html', error="No content was extracted for the given date range.")
     
@@ -111,3 +120,5 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+

@@ -46,7 +46,7 @@ print("Hadoop stderr:", stderr)
 
 
 # Descargar el archivo de salida de Hadoop desde HDFS a la máquina CentOS
-hdfs_get_command = f'ssh -p {port} {username}@{hostname} "cd /opt/hadoop/hadoop-2.7.7/share/hadoop/mapreduce && hdfs dfs -get /{carpetaSalidaHadoop}/part-r-00000 "'
+hdfs_get_command = f'ssh -p {port} {username}@{hostname} "cd /opt/hadoop/hadoop-2.7.7/share/hadoop/mapreduce && rm -r part-r-00000 && hdfs dfs -get /{carpetaSalidaHadoop}/part-r-00000 "'
 stdout, stderr = run_command(hdfs_get_command)
 print("HDFS get stdout:", stdout)
 print("HDFS get stderr:", stderr)
@@ -57,9 +57,13 @@ hdfs_get_command = f'ssh -p {port} {username}@{hostname} "cd /opt/hadoop/hadoop-
 usuario = "adrian"
 windowsIp = "192.168.56.1"
 #direccion de la carpeta donde se guardara el txt en windows (editar)
-ubicacionWindows = "D:/MAIN/HadoopMapReduce/ext/"
-scp_command = f'cd /opt/hadoop/hadoop-2.7.7/share/hadoop/mapreduce &&  scp  part-r-00000 {usuario}@{windowsIp}:{ubicacionWindows} '
+ubicacionWindows = "D:/MAIN/HadoopMapReduce/ext"
+scp_command = f'ssh -p {port} {username}@{hostname} "cd /opt/hadoop/hadoop-2.7.7/share/hadoop/mapreduce &&  scp  part-r-00000 {usuario}@{windowsIp}:{ubicacionWindows}" '
 stdout, stderr = run_command(scp_command)
 print("SCP stdout:", stdout)
 print("SCP stderr:", stderr)
 #cd /opt/hadoop/hadoop-2.7.7/share/hadoop/mapreduce
+
+#correr el programa de encontrar palabra mas frecuente
+stdout, stderr = run_command(f"python {ubicacionWindows}/encontrar_palabra_mas_frecuente.py")
+print("Python stdout:", stdout)

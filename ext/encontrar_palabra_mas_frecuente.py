@@ -1,6 +1,3 @@
-import tkinter
-
-
 def palabra_mas_frecuente(nombre_archivo):
     # Crear un diccionario para almacenar las palabras y sus cantidades
     frecuencias = {}    
