@@ -57,7 +57,7 @@ def almacenar_frases(contenido, archivo_salida):
 
     for linea in lineas:
         # Borrar las líneas que tienen menos de 3 palabras
-        if len(linea.split()) <= 3:
+        if len(linea.split()) <= 4:
             continue
         # Eliminar las palabras que tienen menos de 3 caracteres
         palabras = linea.split()
@@ -101,17 +101,21 @@ def index():
         
         all_page_text = extract_content_for_date_range(start_date, end_date, newspapers)        
         if all_page_text:
-            frases_output = 'frases.txt'            
+            
+            frases_output = 'noticias.txt'            
             almacenar_frases(all_page_text, frases_output)
             # correr el programa comandos.py
             stdout, stderr = run_command('python comandos.py')
             print("Comandos stdout:", stdout)
             print("Comandos stderr:", stderr)
+            stdout, stderr = run_command('type palabras_mas_frecuentes.txt >> noticias.txt') 
+            print("type stdout:", stdout)
+            print("type stderr:", stderr)           
             return send_file(
                 frases_output,
                 as_attachment=True,
                 download_name=frases_output,
-                mimetype='text/plain'                
+                mimetype='text/plain'                                
             )                       
         else:
             return render_template('index.html', error="No content was extracted for the given date range.")
