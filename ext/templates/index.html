@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extractor de Contenido</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #4caf50;
+      }
+      form {
+        text-align: center;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+      }
+      input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      fieldset {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      legend {
+        font-weight: bold;
+        color: #4caf50;
+      }
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .error-message {
+        color: #ff0000;
+        margin-top: 10px;
+      }
+      /* Diseños relacionados con Big Data */
+      .big-data-info {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+      }
+      .big-data-info h2 {
+        color: #4caf50;
+        margin-bottom: 10px;
+      }
+      .big-data-info p {
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Extractor de Contenido</h1>
+      {% if error %}
+      <p class="error-message">{{ error }}</p>
+      {% endif %}
+      <form method="post">
+        <label for="start_date">Fecha de Inicio (AAAA-MM-DD):</label>
+        <input
+          type="date"
+          id="start_date"
+          name="start_date"
+          required
+        /><br /><br />
+
+        <label for="end_date">Fecha de Fin (AAAA-MM-DD):</label>
+        <input type="date" id="end_date" name="end_date" required /><br /><br />
+
+        <fieldset>
+          <legend>Seleccionar Periódicos:</legend>
+          <input
+            type="checkbox"
+            id="opinion"
+            name="newspapers"
+            value="Opinión"
+          />
+          <label for="opinion">Opinión</label><br />
+          <input
+            type="checkbox"
+            id="eldeber"
+            name="newspapers"
+            value="El Deber"
+          />
+          <label for="eldeber">El Deber</label><br />
+          <input
+            type="checkbox"
+            id="lostiempos"
+            name="newspapers"
+            value="Los Tiempos"
+          />
+          <label for="lostiempos">Los Tiempos</label><br />
+        </fieldset>
+        <br />
+
+        <button type="submit">Extraer y Guardar Contenido</button>
+      </form>
+
+      <!-- Información relacionada con Big Data -->
+      <div class="big-data-info">
+        <h2>Explora Big Data</h2>
+        <p>
+          El big data está revolucionando la forma en que extraemos, analizamos
+          y utilizamos la información. Descubre las últimas tendencias e
+          innovaciones en el mundo del big data.
+        </p>
+        <p>
+          Aprende cómo las empresas aprovechan el big data para obtener
+          información, tomar decisiones informadas y impulsar el crecimiento.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
