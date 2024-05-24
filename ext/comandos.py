@@ -12,10 +12,10 @@ def run_command(command):
 
 # Transferir archivo desde Windows a CentOS usando SCP
 #direccion del txt de windows(editar)
-local_file_path = "D:/MAIN/HadoopMapReduce/ext/frases.txt"
+local_file_path = "D:/MAIN/HadoopMapReduce/ext/noticias.txt"
 
 #direccion del txt en centOS(editar opcional)
-remote_file_path = "/home/hadoop/windows11.txt"
+remote_file_path = "/home/hadoop/extraido.txt"
 scp_command = f'scp -P {port} "{local_file_path}" {username}@{hostname}:{remote_file_path}'
 stdout, stderr = run_command(scp_command)
 print("SCP stdout:", stdout)
@@ -24,10 +24,10 @@ print("SCP stderr:", stderr)
 carpetaEntradaHadoop = "noticia"
 
 #Nombre de la carpeta de salida del mapreduce de hadoop (editar siempre)
-carpetaSalidaHadoop = "salidota2"
+carpetaSalidaHadoop = "salida_noticias"
 # Subir el archivo al sistema de archivos distribuido de Hadoop (HDFS)
 
-hdfs_vaciar_command = f'ssh -p {port} {username}@{hostname} "hdfs dfs -rm -r -f /salidota2 && hdfs dfs -rm -r -f /noticia/*"'
+hdfs_vaciar_command = f'ssh -p {port} {username}@{hostname} "hdfs dfs -rm -r -f /salida_noticias && hdfs dfs -rm -r -f /noticia/*"'
 stdout, stderr = run_command(hdfs_vaciar_command)
 print("HDFS vaciar stdout:", stdout)
 print("HDFS vaciar stderr:", stderr)
@@ -50,8 +50,6 @@ hdfs_get_command = f'ssh -p {port} {username}@{hostname} "cd /opt/hadoop/hadoop-
 stdout, stderr = run_command(hdfs_get_command)
 print("HDFS get stdout:", stdout)
 print("HDFS get stderr:", stderr)
-
-hdfs_get_command = f'ssh -p {port} {username}@{hostname} "cd /opt/hadoop/hadoop-2.7.7/share/hadoop/mapreduce && hdfs dfs -get /{carpetaSalidaHadoop}/part-r-00000 "'
 
 # Descargar el archivo de resultado desde CentOS a Windows
 usuario = "adrian"

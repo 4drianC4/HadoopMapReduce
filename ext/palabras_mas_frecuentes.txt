@@ -1,12 +1,12 @@
 -------------------------------------------------------------
 Las 10 noticias más relevantes son acerca de:
-'Gobierno': 57
-'contra': 43
-'entre': 36
-'final': 36
-'presidente': 35
-'Mundial': 33
-'Cochabamba': 31
-'Bolivia': 27
-'Messi': 26
-'dólares': 25
+'Bolivia': 38
+'Cochabamba': 37
+'Gobierno': 35
+'contra': 35
+'presidente': 29
+'sobre': 29
+'Tucho': 28
+'millones': 26
+'bloqueo': 23
+'departamentos': 22
